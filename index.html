@@ -1,0 +1,862 @@
+<!DOCTYPE html>
+<!-- saved from url=(0055)file:///C:/Users/pansa/OneDrive/Desktop/index.html.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehul Pansare — Performance Marketing &amp; Full-Stack Development</title>
+<meta name="description" content="Mehul Pansare — CS engineer working across performance marketing, technical SEO, and full-stack web development. Frontend, backend, and the growth strategy in between.">
+
+<!-- 
+  NOTE TO MEHUL: search this file for [ ] to find every placeholder —
+  email, phone, socials, and the three project case studies — and swap
+  in your real details before publishing.
+
+  Backend: the enquiry form writes to the "enquiries" table in your
+  Supabase project (ref: jppnenxpilgnymbsrjlp). The anon/publishable key
+  below is safe to expose client-side by design — it can only INSERT into
+  that table (no read/update/delete), enforced by Postgres grants + RLS.
+  Never put a service_role key in this file.
+-->
+
+<script src="./index_files/supabase.js.download"></script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com/">
+<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+<link href="./index_files/css2" rel="stylesheet">
+
+<style>
+  :root{
+    --ink: #0d2b4e;
+    --ink-deep: #081b34;
+    --line: rgba(238,243,248,0.16);
+    --line-strong: rgba(238,243,248,0.34);
+    --paper-line: rgba(13,43,78,0.14);
+    --paper-line-strong: rgba(13,43,78,0.30);
+    --white: #eef3f8;
+    --paper: #f6f3ea;
+    --ink-text: #13202c;
+    --ink-text-soft: #4c5c6b;
+    --amber: #dd9a2e;
+    --amber-deep: #b9791b;
+    --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
+    --sans: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    --maxw: 1180px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background:var(--paper);
+    color:var(--ink-text);
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; }
+  h1,h2,h3{ margin:0; font-family:var(--mono); font-weight:600; letter-spacing:-0.01em; }
+  p{ margin:0; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+
+  :focus-visible{ outline:2px solid var(--amber); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding-inline:24px; }
+
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:22px; height:1px;
+    background:currentColor;
+    opacity:0.55;
+  }
+
+  /* ---------- header ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:var(--ink-deep);
+    border-bottom:1px solid var(--line);
+  }
+  .header-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:14px;
+    color:var(--white);
+  }
+  .brand{ display:flex; align-items:center; gap:12px; text-decoration:none; }
+  .brand-mark{
+    width:36px; height:36px;
+    border:1px solid var(--line-strong);
+    display:flex; align-items:center; justify-content:center;
+    font-family:var(--mono); font-weight:700; font-size:13px;
+    color:var(--amber);
+    flex-shrink:0;
+  }
+  .brand-text{ line-height:1.15; }
+  .brand-text .name{ font-family:var(--mono); font-size:13.5px; letter-spacing:0.04em; }
+  .brand-text .role{ font-family:var(--mono); font-size:10.5px; color:var(--white); opacity:0.55; letter-spacing:0.04em; }
+
+  nav ul{ display:flex; gap:26px; }
+  nav a{
+    font-family:var(--mono); font-size:12px; letter-spacing:0.04em;
+    text-decoration:none; color:var(--white); opacity:0.72;
+    display:flex; align-items:baseline; gap:5px;
+    transition:opacity .15s ease;
+  }
+  nav a span{ color:var(--amber); opacity:1; }
+  nav a:hover{ opacity:1; }
+
+  .nav-toggle{
+    display:none;
+    background:transparent; border:1px solid var(--line-strong);
+    width:38px; height:34px;
+    color:var(--white);
+    align-items:center; justify-content:center;
+  }
+  .nav-toggle svg{ width:16px; height:16px; }
+
+  /* ---------- section shells ---------- */
+  section{ position:relative; }
+  .sheet-dark{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/48px 48px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/48px 48px,
+      var(--ink);
+    color:var(--white);
+  }
+  .sheet-paper{
+    background-image: radial-gradient(var(--paper-line) 1px, transparent 1px);
+    background-size: 22px 22px;
+    background-color:var(--paper);
+    color:var(--ink-text);
+  }
+  .sheet-inner{ padding-block:96px; }
+  @media (max-width:720px){ .sheet-inner{ padding-block:64px; } }
+
+  .sheet-head{ margin-bottom:44px; max-width:640px; }
+  .sheet-head h2{ font-size:26px; margin-top:10px; }
+  .sheet-head .desc{ margin-top:14px; font-size:15px; line-height:1.65; opacity:0.85; }
+  .sheet-dark .eyebrow{ color:var(--amber); }
+  .sheet-paper .eyebrow{ color:var(--amber-deep); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding-top:64px; padding-bottom:40px; }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr 1fr; gap:56px; align-items:center;
+  }
+  @media (max-width:920px){ .hero-grid{ grid-template-columns:1fr; gap:44px; } }
+
+  .hero h1{
+    font-size:clamp(30px, 4.4vw, 48px);
+    line-height:1.12;
+    letter-spacing:-0.015em;
+    margin-top:16px;
+  }
+  .hero .amber{ color:var(--amber); }
+  .hero-sub{
+    font-family:var(--sans);
+    font-size:16px; line-height:1.7;
+    margin-top:20px; max-width:52ch;
+    color:var(--white); opacity:0.82;
+  }
+  .cta-row{ display:flex; gap:14px; margin-top:32px; flex-wrap:wrap; }
+  .btn{
+    font-family:var(--mono); font-size:12.5px; letter-spacing:0.03em;
+    padding:13px 22px;
+    text-decoration:none;
+    border:1px solid var(--amber);
+    display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+  }
+  .btn-solid{ background:var(--amber); color:var(--ink-deep); }
+  .btn-solid:hover{ transform:translateY(-1px); background:#eaa943; }
+  .btn-ghost{ background:transparent; color:var(--white); border-color:var(--line-strong); }
+  .btn-ghost:hover{ border-color:var(--amber); color:var(--amber); transform:translateY(-1px); }
+
+  .hero-diagram{ position:relative; }
+  .diagram-caption{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.08em;
+    color:var(--white); opacity:0.45; margin-top:10px; text-align:right;
+  }
+
+  .draw-line{
+    stroke-dasharray:1000;
+    stroke-dashoffset:1000;
+    animation:draw 1.6s ease forwards;
+  }
+  .draw-line.d2{ animation-delay:.15s; }
+  .draw-line.d3{ animation-delay:.3s; }
+  .draw-line.d4{ animation-delay:.45s; }
+  @keyframes draw{ to{ stroke-dashoffset:0; } }
+  @media (prefers-reduced-motion: reduce){
+    .draw-line{ animation:none; stroke-dashoffset:0; }
+    html{ scroll-behavior:auto; }
+  }
+
+  /* ---------- profile / spec table ---------- */
+  .profile-grid{
+    display:grid; grid-template-columns:1.1fr 0.9fr; gap:64px; align-items:start;
+  }
+  @media (max-width:820px){ .profile-grid{ grid-template-columns:1fr; gap:36px; } }
+  .profile-copy p{ font-size:16.5px; line-height:1.8; }
+  .profile-copy p + p{ margin-top:16px; }
+
+  .spec-table{ border-top:1px solid var(--paper-line-strong); }
+  .spec-row{
+    display:grid; grid-template-columns:120px 1fr;
+    gap:16px; padding-block:14px;
+    border-bottom:1px solid var(--paper-line-strong);
+    font-size:13.5px;
+  }
+  .spec-row dt{
+    font-family:var(--mono); font-size:11px; letter-spacing:0.06em;
+    color:var(--ink-text-soft); text-transform:uppercase; margin:0;
+  }
+  .spec-row dd{ margin:0; line-height:1.55; }
+
+  /* ---------- stack layers ---------- */
+  .layer{
+    border:1px solid var(--line);
+    border-left:3px solid var(--amber);
+    padding:26px 26px;
+    margin-bottom:16px;
+  }
+  .layer-head{
+    display:flex; align-items:baseline; justify-content:space-between; gap:14px;
+    flex-wrap:wrap;
+  }
+  .layer-head h3{ font-size:15px; letter-spacing:0.03em; color:var(--white); }
+  .layer-tag{ font-family:var(--mono); font-size:10.5px; opacity:0.5; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:8px; margin-top:16px; }
+  .chip{
+    font-family:var(--mono); font-size:11.5px;
+    border:1px solid var(--line-strong);
+    padding:6px 11px;
+    color:var(--white); opacity:0.85;
+  }
+
+  /* ---------- services ---------- */
+  .card-grid{
+    display:grid; grid-template-columns:repeat(3, 1fr); gap:1px;
+    background:var(--paper-line-strong);
+    border:1px solid var(--paper-line-strong);
+  }
+  @media (max-width:880px){ .card-grid{ grid-template-columns:repeat(2, 1fr); } }
+  @media (max-width:560px){ .card-grid{ grid-template-columns:1fr; } }
+  .service-card{
+    background:var(--paper); padding:28px 24px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .service-num{ font-family:var(--mono); font-size:11px; color:var(--amber-deep); }
+  .service-card h3{ font-size:15px; color:var(--ink-text); }
+  .service-card p{ font-size:13.5px; line-height:1.6; color:var(--ink-text-soft); }
+
+  /* ---------- process ---------- */
+  .process-list{
+    display:grid; grid-template-columns:repeat(4,1fr); gap:0;
+    position:relative;
+  }
+  @media (max-width:880px){ .process-list{ grid-template-columns:1fr 1fr; gap:32px 0; } }
+  @media (max-width:560px){ .process-list{ grid-template-columns:1fr; } }
+  .process-step{
+    padding-right:24px; position:relative;
+  }
+  .process-step:not(:last-child)::after{
+    content:"";
+    position:absolute; top:8px; right:0; left:auto;
+    width:calc(100% - 6px); height:0;
+    border-top:1px dashed var(--line-strong);
+  }
+  @media (max-width:880px){ .process-step:not(:last-child)::after{ display:none; } }
+  .step-num{
+    font-family:var(--mono); font-size:12px; color:var(--amber);
+    display:block; margin-bottom:14px;
+  }
+  .process-step h3{ font-size:14.5px; color:var(--white); letter-spacing:0.02em; }
+  .process-step p{ font-size:13.5px; line-height:1.6; color:var(--white); opacity:0.75; margin-top:10px; }
+
+  /* ---------- projects ---------- */
+  .project-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+  @media (max-width:880px){ .project-grid{ grid-template-columns:1fr; } }
+  .project-card{
+    border:1px solid var(--paper-line-strong);
+    padding:24px;
+    display:flex; flex-direction:column; gap:14px;
+    min-height:220px;
+  }
+  .tag-row{ display:flex; gap:8px; flex-wrap:wrap; }
+  .tag{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:0.04em;
+    background:var(--ink); color:var(--white);
+    padding:4px 9px;
+  }
+  .project-card h3{ font-size:15.5px; color:var(--ink-text); }
+  .project-card p{ font-size:13.5px; line-height:1.6; color:var(--ink-text-soft); flex-grow:1; }
+  .project-metric{
+    font-family:var(--mono); font-size:12px; color:var(--amber-deep);
+    border-top:1px solid var(--paper-line-strong); padding-top:12px;
+  }
+  .project-note{
+    margin-top:22px; font-family:var(--mono); font-size:11.5px;
+    color:var(--ink-text-soft);
+  }
+
+  /* ---------- enquiry ---------- */
+  .enquiry-grid{ display:grid; grid-template-columns:0.8fr 1.2fr; gap:56px; }
+  @media (max-width:880px){ .enquiry-grid{ grid-template-columns:1fr; gap:36px; } }
+  .enquiry-side p{ font-size:15px; line-height:1.75; opacity:0.85; }
+  .enquiry-side .spec-row dt{ color:rgba(238,243,248,0.5); }
+  .enquiry-side .spec-row{ border-color:var(--line); }
+  .enquiry-side .spec-table{ border-color:var(--line); margin-top:28px; }
+
+  form{ border:1px solid var(--line-strong); padding:32px; background:rgba(238,243,248,0.03); }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  @media (max-width:560px){ .field-row{ grid-template-columns:1fr; } }
+  .field{ margin-bottom:18px; }
+  .field label{
+    display:block; font-family:var(--mono); font-size:11px;
+    letter-spacing:0.06em; text-transform:uppercase; margin-bottom:8px;
+    color:var(--white); opacity:0.7;
+  }
+  .field input, .field select, .field textarea{
+    width:100%;
+    background:var(--ink-deep);
+    border:1px solid var(--line-strong);
+    color:var(--white);
+    font-family:var(--sans);
+    font-size:14px;
+    padding:11px 12px;
+  }
+  .field textarea{ resize:vertical; min-height:110px; }
+  .field input::placeholder, .field textarea::placeholder{ color:rgba(238,243,248,0.35); }
+  .honeypot{ position:absolute; left:-9999px; opacity:0; height:0; overflow:hidden; }
+
+  .form-foot{ display:flex; align-items:center; gap:18px; flex-wrap:wrap; margin-top:8px; }
+  .form-note{ font-family:var(--mono); font-size:11px; opacity:0.55; max-width:36ch; line-height:1.6; }
+  .form-status{
+    font-family:var(--mono); font-size:12px; color:var(--amber);
+    display:none;
+  }
+  .form-status.show{ display:block; }
+  .form-status.error{ color:#e77373; }
+  .field input[disabled], .field select[disabled], .field textarea[disabled]{ opacity:0.5; }
+
+  /* ---------- footer ---------- */
+  footer{ background:var(--ink-deep); color:var(--white); border-top:1px solid var(--line); }
+  .footer-row{
+    display:flex; align-items:center; justify-content:space-between;
+    padding-block:26px; flex-wrap:wrap; gap:16px;
+    font-family:var(--mono); font-size:11.5px; opacity:0.6;
+  }
+  .footer-socials{ display:flex; gap:18px; }
+  .footer-socials a{ text-decoration:none; opacity:0.85; }
+  .footer-socials a:hover{ color:var(--amber); opacity:1; }
+
+  /* ---------- mobile nav ---------- */
+  @media (max-width:820px){
+    nav{ display:none; position:absolute; top:100%; left:0; right:0; background:var(--ink-deep); border-bottom:1px solid var(--line); }
+    nav.open{ display:block; }
+    nav ul{ flex-direction:column; gap:0; padding-block:8px; }
+    nav a{ padding:14px 24px; border-top:1px solid var(--line); opacity:0.85; }
+    .nav-toggle{ display:flex; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap header-row">
+    <a class="brand" href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#top">
+      <span class="brand-mark">MP</span>
+      <span class="brand-text">
+        <span class="name">MEHUL PANSARE</span><br>
+        <span class="role">MARKETING · FRONTEND · BACKEND</span>
+      </span>
+    </a>
+    <nav id="siteNav">
+      <ul>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#profile"><span>§</span>Profile</a></li>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#stack"><span>§</span>Stack</a></li>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#services"><span>§</span>Services</a></li>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#process"><span>§</span>Process</a></li>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#projects"><span>§</span>Projects</a></li>
+        <li><a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#enquiry"><span>§</span>Enquiry</a></li>
+      </ul>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle navigation">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO / SHEET 00 -->
+  <section class="sheet-dark hero">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="eyebrow">Sheet 00 — Cover</p>
+          <h1>I build the system<br>— and the <span class="amber">growth engine</span><br>that fills it.</h1>
+          <p class="hero-sub">CS engineer turned performance marketer. I design and ship full-stack web products, then run the SEO and paid strategy that gets people to them — one person owning the pipeline end to end.</p>
+          <div class="cta-row">
+            <a class="btn btn-solid" href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#stack">See the stack</a>
+            <a class="btn btn-ghost" href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#enquiry">Start an enquiry</a>
+          </div>
+        </div>
+
+        <div class="hero-diagram">
+          <svg viewBox="0 0 560 460" role="img" aria-labelledby="diagramTitle">
+            <title id="diagramTitle">Diagram: search, ads, and social traffic flowing into a landing page built on a React frontend and Node/Supabase backend, narrowing through a funnel to a conversion point.</title>
+
+            <!-- frame -->
+            <rect x="10" y="10" width="540" height="440" fill="none" stroke="var(--line)" stroke-width="1" stroke-dasharray="4 5"></rect>
+            <!-- corner crosshairs -->
+            <g stroke="var(--line-strong)" stroke-width="1">
+              <line x1="10" y1="24" x2="10" y2="4"></line><line x1="0" y1="14" x2="20" y2="14"></line>
+              <line x1="550" y1="24" x2="550" y2="4"></line><line x1="540" y1="14" x2="560" y2="14"></line>
+              <line x1="10" y1="450" x2="10" y2="440"></line><line x1="0" y1="445" x2="20" y2="445"></line>
+              <line x1="550" y1="450" x2="550" y2="440"></line><line x1="540" y1="445" x2="560" y2="445"></line>
+            </g>
+
+            <!-- traffic sources -->
+            <g font-family="IBM Plex Mono" font-size="9" fill="var(--white)" opacity="0.75">
+              <circle cx="55" cy="90" r="5" fill="none" stroke="var(--amber)" stroke-width="1.4"></circle>
+              <text x="68" y="93">SEARCH</text>
+              <circle cx="55" cy="150" r="5" fill="none" stroke="var(--amber)" stroke-width="1.4"></circle>
+              <text x="68" y="153">ADS</text>
+              <circle cx="55" cy="210" r="5" fill="none" stroke="var(--amber)" stroke-width="1.4"></circle>
+              <text x="68" y="213">SOCIAL</text>
+            </g>
+
+            <g stroke="var(--line-strong)" stroke-width="1" fill="none" class="draw-line">
+              <path d="M60 90 L150 150"></path>
+              <path d="M60 150 L150 150"></path>
+              <path d="M60 210 L150 150"></path>
+            </g>
+            <circle cx="150" cy="150" r="2.5" fill="var(--amber)"></circle>
+
+            <!-- connector to browser -->
+            <line x1="152" y1="150" x2="195" y2="150" stroke="var(--line-strong)" stroke-width="1" class="draw-line d2"></line>
+
+            <!-- browser / landing page -->
+            <g>
+              <rect x="195" y="95" width="180" height="110" fill="none" stroke="var(--white)" stroke-width="1.2"></rect>
+              <line x1="195" y1="113" x2="375" y2="113" stroke="var(--white)" stroke-width="1"></line>
+              <circle cx="205" cy="104" r="2" fill="var(--white)" opacity="0.6"></circle>
+              <circle cx="213" cy="104" r="2" fill="var(--white)" opacity="0.6"></circle>
+              <circle cx="221" cy="104" r="2" fill="var(--white)" opacity="0.6"></circle>
+              <rect x="209" y="126" width="120" height="5" fill="var(--white)" opacity="0.5"></rect>
+              <rect x="209" y="140" width="90" height="5" fill="var(--white)" opacity="0.3"></rect>
+              <rect x="209" y="160" width="46" height="16" fill="var(--amber)"></rect>
+            </g>
+            <text x="285" y="80" text-anchor="middle" font-family="IBM Plex Mono" font-size="9.5" fill="var(--white)" letter-spacing="1">LANDING PAGE</text>
+
+            <!-- stack layers below browser -->
+            <line x1="285" y1="205" x2="285" y2="228" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="3 4" class="draw-line d3"></line>
+            <g font-family="IBM Plex Mono" font-size="8.5" fill="var(--white)">
+              <rect x="195" y="228" width="180" height="30" fill="none" stroke="var(--line-strong)" stroke-width="1"></rect>
+              <text x="205" y="247" opacity="0.85">FRONTEND — REACT · TS</text>
+              <rect x="195" y="262" width="180" height="30" fill="none" stroke="var(--line-strong)" stroke-width="1"></rect>
+              <text x="205" y="281" opacity="0.85">BACKEND — NODE · SUPABASE</text>
+            </g>
+
+            <!-- funnel to conversion -->
+            <path d="M377 105 L470 135 L470 165 L377 195 Z" fill="none" stroke="var(--line-strong)" stroke-width="1" stroke-dasharray="3 4" class="draw-line d4"></path>
+            <circle cx="500" cy="150" r="20" fill="none" stroke="var(--amber)" stroke-width="1.4"></circle>
+            <path d="M492 150 L498 157 L510 142" fill="none" stroke="var(--amber)" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path>
+            <text x="500" y="188" text-anchor="middle" font-family="IBM Plex Mono" font-size="8.5" fill="var(--white)" letter-spacing="0.5" opacity="0.8">CONVERSION</text>
+
+            <!-- annotations -->
+            <g font-family="IBM Plex Mono" font-size="8" fill="var(--white)" opacity="0.55">
+              <line x1="150" y1="150" x2="90" y2="330" stroke="var(--line)" stroke-width="1"></line>
+              <text x="55" y="342">SEO · PAID · SOCIAL</text>
+
+              <line x1="440" y1="150" x2="470" y2="330" stroke="var(--line)" stroke-width="1"></line>
+              <text x="420" y="342">GA4 / GTM TRACKING</text>
+            </g>
+
+            <!-- title block -->
+            <g font-family="IBM Plex Mono" font-size="8" fill="var(--white)">
+              <rect x="360" y="370" width="170" height="62" fill="none" stroke="var(--line-strong)" stroke-width="1"></rect>
+              <line x1="360" y1="391" x2="530" y2="391" stroke="var(--line-strong)" stroke-width="1"></line>
+              <line x1="360" y1="411" x2="530" y2="411" stroke="var(--line-strong)" stroke-width="1"></line>
+              <text x="368" y="384" opacity="0.85">DRAWN — M. PANSARE</text>
+              <text x="368" y="404" opacity="0.65">SCALE — NTS</text>
+              <text x="368" y="424" opacity="0.65">SHEET — 00 / OVERVIEW</text>
+            </g>
+          </svg>
+          <p class="diagram-caption">FIG. 01 — TRAFFIC → PRODUCT → CONVERSION</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROFILE / SHEET 01 -->
+  <section class="sheet-paper" id="profile">
+    <div class="wrap sheet-inner">
+      <div class="sheet-head">
+        <p class="eyebrow">Sheet 01 — Profile</p>
+        <h2>Not a marketer with a developer on call.</h2>
+      </div>
+
+      <div class="profile-grid">
+        <div class="profile-copy">
+          <p>I'm a computer science engineer working across performance marketing, technical SEO, and full-stack web development. Most marketers hand the build off to a developer, and most developers hand growth off to a marketer — I do both, so the product and the strategy driving traffic to it are designed together from day one.</p>
+          <p>That means landing pages that are fast because I built them, campaigns that are tracked correctly because I wired the analytics myself, and SEO recommendations that account for what's actually feasible to ship — not a list handed over the wall.</p>
+        </div>
+
+        <dl class="spec-table">
+          <div class="spec-row">
+            <dt>Role</dt>
+            <dd>Performance Marketer &amp; Full-Stack Developer</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Background</dt>
+            <dd>B.E. / B.Tech, Computer Science</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Based</dt>
+            <dd>Navi Mumbai, India</dd>
+          </div>
+          <div class="spec-row">
+            <dt>Stack</dt>
+            <dd>React · Node.js · Supabase · Google &amp; Meta Ads · Technical SEO</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- STACK / SHEET 02 -->
+  <section class="sheet-dark" id="stack">
+    <div class="wrap sheet-inner">
+      <div class="sheet-head">
+        <p class="eyebrow">Sheet 02 — Stack</p>
+        <h2>Three layers, one person.</h2>
+        <p class="desc">Everything below is built and run in-house — no handoffs, no lost context between the brief and the code.</p>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>FRONTEND</h3>
+          <span class="layer-tag">WHAT PEOPLE SEE</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip">React</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">Tailwind CSS</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">Responsive &amp; accessible UI</span>
+          <span class="chip">Design systems</span>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>BACKEND</h3>
+          <span class="layer-tag">WHAT MAKES IT RUN</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Node.js</span>
+          <span class="chip">REST &amp; GraphQL APIs</span>
+          <span class="chip">PostgreSQL / Supabase</span>
+          <span class="chip">Auth &amp; hosting</span>
+          <span class="chip">System &amp; database design</span>
+        </div>
+      </div>
+
+      <div class="layer">
+        <div class="layer-head">
+          <h3>GROWTH &amp; SEO</h3>
+          <span class="layer-tag">WHAT BRINGS PEOPLE IN</span>
+        </div>
+        <div class="chip-row">
+          <span class="chip">Technical SEO &amp; audits</span>
+          <span class="chip">On-page &amp; content SEO</span>
+          <span class="chip">Google Ads &amp; Meta Ads</span>
+          <span class="chip">GA4 &amp; GTM</span>
+          <span class="chip">CRO &amp; funnel analysis</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES / SHEET 03 -->
+  <section class="sheet-paper" id="services">
+    <div class="wrap sheet-inner">
+      <div class="sheet-head">
+        <p class="eyebrow">Sheet 03 — Services</p>
+        <h2>What I take on.</h2>
+      </div>
+
+      <div class="card-grid">
+        <div class="service-card">
+          <span class="service-num">01</span>
+          <h3>Technical SEO &amp; Audits</h3>
+          <p>Crawl, indexation, Core Web Vitals, and on-page fixes that move rankings — not just reports.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">02</span>
+          <h3>Performance Marketing</h3>
+          <p>Google &amp; Meta ad campaigns built around a measurable funnel, not vanity metrics.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">03</span>
+          <h3>Website Design &amp; Development</h3>
+          <p>Full frontend builds — React and Tailwind, responsive by default, fast by design.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">04</span>
+          <h3>Full-Stack Web Applications</h3>
+          <p>Custom backends, databases, and APIs for products that need more than a landing page.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">05</span>
+          <h3>Conversion Rate Optimization</h3>
+          <p>Landing pages and funnels tested and tuned against real user behavior.</p>
+        </div>
+        <div class="service-card">
+          <span class="service-num">06</span>
+          <h3>Analytics &amp; Tracking Setup</h3>
+          <p>GA4, GTM, and event tracking wired correctly from the start, not patched in later.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / SHEET 04 -->
+  <section class="sheet-dark" id="process">
+    <div class="wrap sheet-inner">
+      <div class="sheet-head">
+        <p class="eyebrow">Sheet 04 — Process</p>
+        <h2>How a project moves.</h2>
+      </div>
+
+      <div class="process-list">
+        <div class="process-step">
+          <span class="step-num">STEP 01</span>
+          <h3>Discover &amp; Audit</h3>
+          <p>Understand the business, the current site, and where the funnel leaks.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-num">STEP 02</span>
+          <h3>Design &amp; Build</h3>
+          <p>Design and develop the site or landing experience — frontend and backend together.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-num">STEP 03</span>
+          <h3>Launch &amp; Promote</h3>
+          <p>Ship the build and turn on the SEO and paid channels that drive traffic to it.</p>
+        </div>
+        <div class="process-step">
+          <span class="step-num">STEP 04</span>
+          <h3>Measure &amp; Optimize</h3>
+          <p>Track what matters, then iterate on both the product and the campaigns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS / SHEET 05 -->
+  <section class="sheet-paper" id="projects">
+    <div class="wrap sheet-inner">
+      <div class="sheet-head">
+        <p class="eyebrow">Sheet 05 — Projects</p>
+        <h2>Selected work.</h2>
+      </div>
+
+      <div class="project-grid">
+        <div class="project-card">
+          <div class="tag-row"><span class="tag">SEO</span><span class="tag">DEV</span></div>
+          <h3>[Project Name]</h3>
+          <p>[One or two lines on what you built, and the technical SEO work behind it.]</p>
+          <p class="project-metric">[+__% organic traffic]</p>
+        </div>
+        <div class="project-card">
+          <div class="tag-row"><span class="tag">PPC</span><span class="tag">CRO</span></div>
+          <h3>[Project Name]</h3>
+          <p>[One or two lines on the campaign, the funnel, and what changed.]</p>
+          <p class="project-metric">[__ qualified leads / month]</p>
+        </div>
+        <div class="project-card">
+          <div class="tag-row"><span class="tag">FULL-STACK</span></div>
+          <h3>[Project Name]</h3>
+          <p>[One or two lines on the build — stack used, and the problem it solved.]</p>
+          <p class="project-metric">[__ ms avg. load time]</p>
+        </div>
+      </div>
+      <p class="project-note">— Add real case studies with numbers, screenshots, and links once you have them live.</p>
+    </div>
+  </section>
+
+  <!-- ENQUIRY / SHEET 06 -->
+  <section class="sheet-dark" id="enquiry">
+    <div class="wrap sheet-inner">
+      <div class="enquiry-grid">
+        <div class="enquiry-side">
+          <p class="eyebrow">Sheet 06 — Enquiry</p>
+          <h2 style="font-size:26px; margin-top:10px;">Tell me what you're building.</h2>
+          <p style="margin-top:16px;">Share a few details on the project — a new site, a stuck SEO strategy, or a campaign that isn't converting — and I'll follow up within 1–2 business days.</p>
+
+          <dl class="spec-table">
+            <div class="spec-row"><dt>Email</dt><dd>[your@email.com]</dd></div>
+            <div class="spec-row"><dt>Phone</dt><dd>[+91 00000 00000]</dd></div>
+            <div class="spec-row"><dt>Location</dt><dd>Navi Mumbai, India</dd></div>
+          </dl>
+        </div>
+
+        <form id="enquiryForm" novalidate="">
+          <div class="field-row">
+            <div class="field">
+              <label for="fname">Name</label>
+              <input type="text" id="fname" name="name" placeholder="Your full name" required="">
+            </div>
+            <div class="field">
+              <label for="femail">Email</label>
+              <input type="email" id="femail" name="email" placeholder="you@company.com" required="">
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="fphone">Phone <span style="opacity:.5; text-transform:none;">(optional)</span></label>
+              <input type="tel" id="fphone" name="phone" placeholder="+91">
+            </div>
+            <div class="field">
+              <label for="fservice">Service needed</label>
+              <select id="fservice" name="service" required="">
+                <option value="">Select one</option>
+                <option>SEO &amp; technical audit</option>
+                <option>Performance marketing / ads</option>
+                <option>Website design &amp; development</option>
+                <option>Full-stack web application</option>
+                <option>Not sure yet</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field-row">
+            <div class="field" style="grid-column:1 / -1;">
+              <label for="fbudget">Approximate budget</label>
+              <select id="fbudget" name="budget">
+                <option value="">Prefer to discuss</option>
+                <option>Under ₹25,000</option>
+                <option>₹25,000 – ₹75,000</option>
+                <option>₹75,000 – ₹2,00,000</option>
+                <option>₹2,00,000+</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="field">
+            <label for="fmessage">Project details</label>
+            <textarea id="fmessage" name="message" placeholder="What are you trying to build or fix?" required=""></textarea>
+          </div>
+
+          <!-- honeypot, keep hidden — helps filter basic spam -->
+          <div class="field honeypot" aria-hidden="true">
+            <label for="fcompany">Company website</label>
+            <input type="text" id="fcompany" name="company_website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <div class="form-foot">
+            <button type="submit" class="btn btn-solid">Send enquiry</button>
+            <span class="form-status" id="formStatus"></span>
+          </div>
+          <p class="form-note">Enquiries are saved directly and privately — I'll follow up by email within 1–2 business days.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-row">
+    <span>© 2026 MEHUL PANSARE · REV 2026.08</span>
+    <div class="footer-socials">
+      <a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#">[LinkedIn]</a>
+      <a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#">[GitHub]</a>
+      <a href="file:///C:/Users/pansa/AppData/Local/Temp/695074a1-0a74-4469-ac71-04d8ba3f2b04_mehul-pansare-portfolio%20final.zip.b04/mehul-pansare-portfolio%20(1).html#">[Instagram]</a>
+    </div>
+    <span>NAVI MUMBAI, INDIA</span>
+  </div>
+</footer>
+
+<script>
+  // mobile nav toggle
+  var navToggle = document.getElementById('navToggle');
+  var siteNav = document.getElementById('siteNav');
+  navToggle.addEventListener('click', function(){
+    var isOpen = siteNav.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+  siteNav.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', function(){
+      siteNav.classList.remove('open');
+      navToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  // enquiry form -> Supabase ("enquiries" table, anon key can only INSERT)
+  var SUPABASE_URL = "https://jppnenxpilgnymbsrjlp.supabase.co";
+  var SUPABASE_ANON_KEY = "sb_publishable_luq6LnnnO2hCHd3tmn74kQ_C9v3UhJP";
+  var supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+  var form = document.getElementById('enquiryForm');
+  var status = document.getElementById('formStatus');
+  var submitBtn = form.querySelector('button[type="submit"]');
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+
+    // honeypot check — if filled, silently pretend success (likely a bot)
+    if (form.company_website.value.trim() !== '') {
+      form.reset();
+      return;
+    }
+
+    if (!form.checkValidity()) {
+      form.reportValidity();
+      return;
+    }
+
+    var data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      phone: form.phone.value.trim() || null,
+      service: form.service.value,
+      budget: form.budget.value || 'Prefer to discuss',
+      message: form.message.value.trim()
+    };
+
+    submitBtn.disabled = true;
+    Array.prototype.forEach.call(form.elements, function(el){ el.disabled = true; });
+    status.textContent = 'Sending…';
+    status.className = 'form-status show';
+
+    supabaseClient.from('enquiries').insert([data]).then(function(res){
+      Array.prototype.forEach.call(form.elements, function(el){ el.disabled = false; });
+      if (res.error) {
+        status.textContent = "Something went wrong — please email me directly instead.";
+        status.className = 'form-status show error';
+        return;
+      }
+      status.textContent = 'Enquiry received — I\'ll get back to you within 1–2 business days.';
+      status.className = 'form-status show';
+      form.reset();
+    });
+  });
+</script>
+
+
+
+</body></html>
